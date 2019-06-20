@@ -1,5 +1,6 @@
 package com.proxsky.instagramclone;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -98,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
         btnTransition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this,SignUpLoginActivity.class);
+                startActivity(intent);
             }
         });
     }
