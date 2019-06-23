@@ -1,5 +1,6 @@
 package com.proxsky.instagramclone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -29,7 +29,7 @@ public class SignUpLoginActivity extends AppCompatActivity {
 
         edtUserNameLogin = findViewById(R.id.edtUsernameLogin);
         edtUserNameSignup = findViewById(R.id.edtUsernameSignup);
-        edtPasswordLogin = findViewById(R.id.edtPasswordLogin);
+        edtPasswordLogin = findViewById(R.id.etPasswordLogin);
         edtPasswordSignup = findViewById(R.id.edtPasswordSignup);
 
         btnSignup = findViewById(R.id.btnSignup);
@@ -66,10 +66,16 @@ public class SignUpLoginActivity extends AppCompatActivity {
                         edtPasswordLogin.getText().toString(), new LogInCallback() {
                             @Override
                             public void done(ParseUser user, ParseException e) {
-                                if(user != null && e ==null)
+                                if(user != null && e == null)
                                 {
                                     FancyToast.makeText(SignUpLoginActivity.this,"Login successfully!"
                                            ,FancyToast.SUCCESS, Toast.LENGTH_LONG,false).show();
+
+                                    Intent intent = new Intent(SignUpLoginActivity.this,WelcomeActivity.class);
+                                    intent.putExtra("username", user.get("username").toString());
+                                    startActivity(intent);
+
+
                                 }
                                 else
                                 {
