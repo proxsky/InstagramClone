@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -55,10 +56,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                 startActivity(intent);
-                finish();
+
 
             }
         });
+
+
+        if(ParseUser.getCurrentUser()!=null) {
+            ParseUser.logOut();
+            transitionToSocialMediaActivity();
+        }
 
     }
 
@@ -86,8 +93,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void done(ParseException e) {
                     if (e == null)
+                    {
                         FancyToast.makeText(SignUpActivity.this, "Signed up successfully!"
                                 , FancyToast.SUCCESS, Toast.LENGTH_LONG, false).show();
+                        transitionToSocialMediaActivity();
+                    }
                     else
                         FancyToast.makeText(SignUpActivity.this, e.getMessage()
                                 , FancyToast.ERROR, Toast.LENGTH_LONG, false).show();
@@ -96,8 +106,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 }
             });
         }
-        if(ParseUser.getCurrentUser()!=null)
-            ParseUser.logOut();
+
     }
 
     public void routeLayoutClick(View view)
@@ -112,4 +121,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
         }
     }
+
+
+    private void transitionToSocialMediaActivity()
+    {
+        Intent intent = new Intent(SignUpActivity.this,SocialMediaActivity.class);
+        startActivity(intent);
+    }
+
 }

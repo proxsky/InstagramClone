@@ -1,5 +1,6 @@
 package com.proxsky.instagramclone;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
                 startActivity(intent);
-                finish();
+
             }
         });
     }
@@ -78,23 +79,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         else
         {
+            final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.setMessage("Signing In!");
+            progressDialog.show();
             ParseUser.logInInBackground(etEmail.getText().toString(), etPassword.getText().toString(), new LogInCallback() {
                 @Override
                 public void done(ParseUser user, ParseException e) {
 
+
                     if(user!=null && e==null)
                     {
+
                         FancyToast.makeText(LoginActivity.this,"Login successfully!"
                                 ,FancyToast.SUCCESS, Toast.LENGTH_LONG,false).show();
+                        transitionToSocialMediaActivity();
                     }
                     else
                     {
                         FancyToast.makeText(LoginActivity.this,e.getMessage()
                                 ,FancyToast.ERROR, Toast.LENGTH_LONG,false).show();
                     }
-
+                    progressDialog.dismiss();
                 }
             });
         }
     }
+
+
+    private void transitionToSocialMediaActivity()
+    {
+        Intent intent = new Intent(LoginActivity.this,SocialMediaActivity.class);
+        startActivity(intent);
+    }
+
 }
