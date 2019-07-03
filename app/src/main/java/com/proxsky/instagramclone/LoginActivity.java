@@ -2,8 +2,8 @@ package com.proxsky.instagramclone;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.shashank.sony.fancytoastlib.FancyToast;
@@ -51,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     {
         Intent intent = new Intent(LoginActivity.this,SocialMediaActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }
